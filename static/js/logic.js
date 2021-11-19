@@ -19,22 +19,22 @@ var earthquakes = []
           var color = ""
           var depth = earthquakeData[i].geometry.coordinates[2]
           if (depth >=90) {
-            color = 'red';
+            color = '#FF3333';
           } 
           else if (depth < 90 && depth >= 70) {
-            color = "orange";
+            color = '#FF7A33';
           }
           else if (depth < 70 && depth >= 50) {
-            color = "yellow";
+            color = "#FFBB33";
           }
           else if (depth < 50 && depth >= 30) {
-            color = "light yellow";
+            color = "#FFE633";
           }
           else if (depth < 30 && depth >= 10) {
-            color = "blue";
+            color = "#DAFF33";
           }  
           else {
-            color = "gray";
+            color = "#86FF33";
           }
           
           var magsize = (earthquakeData[i].properties.mag)*3
@@ -92,6 +92,7 @@ var quakes = L.layerGroup(earthquakes);
     ],
     zoom: 5,
     layers: [streetmap, quakes]
+    
   });
 
   // Create a layer control
@@ -100,7 +101,27 @@ var quakes = L.layerGroup(earthquakes);
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
+  legend.addTo(myMap);
 }
 
+var legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+
+  var div = L.DomUtil.create('div', 'info legend');
+
+
+
+  div.innerHTML +=
+    '<i style="background:' + "#FF3333" + '"></i> ' + "90+" +
+    '<br>' + '<br>' + '<i style="background:' + "#FF7A33" + '"></i> ' + "70-90" +
+    '<br>' + '<br>' + '<i style="background:' + "#FFBB33" + '"></i> ' + "50-70" +
+    '<br>' + '<br>' + '<i style="background:' + "#FFE633" + '"></i> ' + "30-50" +
+    '<br>' + '<br>' + '<i style="background:' + "#DAFF33" + '"></i> ' + "10-30" +
+    '<br>' + '<br>' + '<i style="background:' + "#86FF33" + '"></i> ' + "-10-10"
+    ;
+
+  return div;
+};
 
 
