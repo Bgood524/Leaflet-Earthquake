@@ -36,14 +36,14 @@ var earthquakes = []
           else {
             color = "gray";
           }
-      
+          
+          var magsize = (earthquakeData[i].properties.mag)*3
           // Add circles to map
           earthquakes.push(L.circleMarker([earthquakeData[i].geometry.coordinates[1], earthquakeData[i].geometry.coordinates[0]], {
               color: "White",
               fillOpacity: .75,
               fillColor: color,
-      // Adjust radius
-            //   radius: markerSize(countries[i].points)
+              radius: magsize
           }))
         //   .bindPopup("<h1>" + countries[i].name + "</h1> <hr> <h3>Points: " + countries[i].points + "</h3>")
         }
